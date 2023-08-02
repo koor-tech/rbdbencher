@@ -42,6 +42,7 @@ for IO_TYPE in "${IO_TYPES[@]}"; do
                         --io-pattern "$IO_PATTERN" \
                             > "$OUT_FILE"
                     echo "$(date '%Y-%m-%d %H:%M:%S'): rbd bench test complete."
+		    sleep 7
                 done
             done
         done
