@@ -4,6 +4,7 @@ set -ex
 
 RBD_POOL_NAME="${RBD_POOL_NAME:-}"
 RBD_IMAGE_NAME_PREFIX="${RBD_IMAGE_NAME_PREFIX:-testimage}"
+RBD_IMAGE_SIZE="${RBD_IMAGE_SIZE:-10G}"
 WAIT_AFTER_TEST="${WAIT_AFTER_TEST:-10}"
 
 if [ -z ${RBD_POOL_NAME+x} ]; then
@@ -17,7 +18,10 @@ mkdir -p "$DIR"
 cd "$DIR" || { echo "$(date '%Y-%m-%d %H:%M:%S'): Unable to enter test results dir $DIR"; exit 1; }
 
 # Create test image
-rbd create -p "${RBD_POOL_NAME}" --size=10G "${RBD_IMAGE_NAME_PREFIX}1"
+rbd create \
+    -p "${RBD_POOL_NAME}" \
+    --size="${RBD_IMAGE_SIZE}" \
+    "${RBD_IMAGE_NAME_PREFIX}1"
 
 # Sequential testsbash
 IO_TYPES=( read write readwrite )
