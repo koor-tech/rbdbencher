@@ -4,6 +4,7 @@ set -ex
 
 RBD_POOL_NAME="${RBD_POOL_NAME:-}"
 RBD_IMAGE_NAME_PREFIX="${RBD_IMAGE_NAME_PREFIX:-testimage}"
+WAIT_AFTER_TEST="${WAIT_AFTER_TEST:-10}"
 
 if [ -z ${RBD_POOL_NAME+x} ]; then
     echo "RBD_POOL_NAME env var is unset. Please set it to the pool name you want to test."
@@ -41,8 +42,8 @@ for IO_TYPE in "${IO_TYPES[@]}"; do
                         --io-total "$IO_TOTAL" \
                         --io-pattern "$IO_PATTERN" \
                             > "$OUT_FILE"
-                    echo "$(date '%Y-%m-%d %H:%M:%S'): rbd bench test complete."
-		    sleep 7
+                    echo "$(date '%Y-%m-%d %H:%M:%S'): rbd bench test complete. Sleeping ${WAIT_AFTER_TEST}s before continuing ..."
+		            sleep "$WAIT_AFTER_TEST"
                 done
             done
         done
